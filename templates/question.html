@@ -33,11 +33,11 @@
 
   <form method="post">
     {% if q.type == 'judge' %}
-      <p>{{ q.question }}</p>
+      <p>{{idx}}. {{ q.question[3:] }}</p>
       <label><input type="radio" name="answer" value="√" required> 正确（√）</label><br>
       <label><input type="radio" name="answer" value="×"> 错误（×）</label>
     {% elif q.type == 'single' %}
-      <p>{{ q.question_text }}</p>
+      <p>{{idx}}. {{ q.question_text[3:] }}</p>
       {% for opt in q.shuffled_options %}
         <label><input type="radio" name="answer" value="{{ opt[0] }}" required>{{ loop.index }}. {{ opt[3:] }}</label><br>
       {% endfor %}
