@@ -127,6 +127,10 @@ def get_result_csv():
 
     return jsonify({"csv": csv_data})
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
 if __name__ == "__main__":
     Session(app)
     app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
