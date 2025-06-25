@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>第 {{ idx }} 题</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+       // 2. 设置数字键 1~4 选择对应 radio
+      const radios = document.querySelectorAll('input[type="radio"]');
+      document.addEventListener("keydown", function (e) {
+        const key = e.key;
+
+        if (key === 'Enter') {
+          const btn = document.querySelector('button[type="submit"]');
+          if (btn) btn.click();
+        }
+
+        const index = parseInt(key, 10);
+        if (index >= 1 && index <= radios.length) {
+          radios[index - 1].checked = true;
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <h2>第 {{ idx }} / {{ total }} 题</h2>
+  <h4>当前答对 {{ correct }} 题, 答错 {{ error }} 题, 正确率 {{ error_rate }}%</h4>
+  <p>{{ last_answer }}</p>
+  </br></br>
+
+  <form method="post">
+    {% if q.type == 'judge' %}
+      <p>{{ q.question }}</p>
+      <label><input type="radio" name="answer" value="√" required> 正确（√）</label><br>
+      <label><input type="radio" name="answer" value="×"> 错误（×）</label>
+    {% elif q.type == 'single' %}
+      <p>{{ q.question_text }}</p>
+      {% for opt in q.shuffled_options %}
+        <label><input type="radio" name="answer" value="{{ opt[0] }}" required>{{ loop.index }}. {{ opt[3:] }}</label><br>
+      {% endfor %}
+    {% endif %}
+    <button type="submit">提交</button>
+  </form>
+  </br></br></br>
+  <a href="/result">不想干了，导出吧</button>
+</body>
+</html>

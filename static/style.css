@@ -1,0 +1,4 @@
+body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+h1, h2 { color: #333; }
+button { padding: 10px 20px; margin-top: 10px; }
+label { display: block; margin: 5px 0; }

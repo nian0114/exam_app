@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>考试结果</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>考试完成</h1>
+  <p>得分：{{ score }} / {{ total }}</p>
+  <p>通过率：{{ rate }}%</p>
+  <p style="color: {{ 'green' if passed else 'red' }}; font-weight: bold;">
+    {{ '恭喜，考试通过！' if passed else '很遗憾，考试未通过。' }}
+  </p>
+  <p>答题记录已导出为 result.csv</p>
+  <button id="download-btn">下载结果CSV</button>
+  <br/>
+
+  <a href="/">返回首页</a>
+</body>
+
+<script>
+  document.getElementById("download-btn").onclick = function () {
+    fetch("/get_result_csv")
+      .then(response => response.json())
+      .then(data => {
+        const csvContent = data.csv;
+        // 创建一个 Blob 对象
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+
+        // 创建临时下载链接
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "result.csv";
+        document.body.appendChild(a);
+        a.click();
+
+        // 清理
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+  };
+</script>
+</html>

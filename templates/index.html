@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>开始考试</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>人工智能训练师 模拟考试系统</h1>
+  <p>共 {{ total }} 道题目。</p>
+  <form action="{{ url_for('question') }}" method="get">
+    <button type="submit">开始答题</button>
+  </form>
+</body>
+</html>
