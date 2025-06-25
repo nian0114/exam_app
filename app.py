@@ -65,8 +65,8 @@ def question():
             selected_text = next((opt for opt in q.get("shuffled_options", []) if opt.startswith(user_ans)), "")
             correct_text = q["correct_text"]
             correct = selected_text.strip() == q["correct_text"].strip()
-            user_ans = selected_text
-            correct_ans = correct_text
+            user_ans = selected_text[3:]
+            correct_ans = correct_text[3:]
         else:
             correct = user_ans == correct_ans
 
